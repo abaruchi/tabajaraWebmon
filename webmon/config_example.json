@@ -1,0 +1,20 @@
+{
+  "AIVEN": {
+    "USER": "TBD",
+    "PASS": "TBD"
+  },
+  "HOSTS": {
+    "https://aiven.io/": {
+      "PROTO": "HTTP",
+      "FREQUENCY": "10",
+      "BASIC_MON": "True",
+      "REGEX_MON": ["[Mm]anages", "open *"]
+    },
+    "https://www.uol.com.br/": {
+      "PROTO": "HTTP",
+      "FREQUENCY": "5",
+      "BASIC_MON": "True",
+      "REGEX_MON": ["[Cc]ovid", " ESPORTE "]
+    }
+  }
+}
