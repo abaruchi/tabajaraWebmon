@@ -1,6 +1,5 @@
-import errno
 import json
-from os import getcwd, strerror
+from os import getcwd
 from pathlib import Path
 
 
