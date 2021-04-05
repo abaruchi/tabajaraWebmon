@@ -1,12 +1,19 @@
+import requests
+import re
+
+from abc import ABC, abstractmethod
 
 
-class Probe(object):
+class Probe(ABC):
+    """
+    This class is
+    """
 
     def __init__(self, host: str, monitor_conf: dict):
-
         self.host = host
         self.monitor_conf = monitor_conf
 
+    @abstractmethod
     def basic_probe(self):
         pass
 
