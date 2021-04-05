@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+
+  webmon:
+    build:
+      context: .
+      dockerfile: ./compose/webmon/Dockerfile
+    command: /start.sh
+    volumes:
+    - .:/webmon/
+
+  webstore:
+    build:
+      context: .
+      dockerfile: ./compose/webstore/Dockerfile
+    command: /start.sh
+    volumes:
+    - .:/webstore/
