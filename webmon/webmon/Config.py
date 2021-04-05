@@ -7,16 +7,16 @@ class UserConfig(object):
 
     def __init__(self, config_path: str = None):
 
-        if config_path is None:
-            self.config_path = Path(getcwd()) / 'webmon/config.json'
-        else:
-            self.config_path = Path(config_path)
+        try:
+            if config_path is None:
+                self.config_path = Path(getcwd()) / 'webmon/config.json'
+            else:
+                self.config_path = Path(config_path)
 
-        if not self.config_path.is_file():
-            raise FileNotFoundError(
-                errno.ENOENT, strerror(errno.ENOENT),
-                str(self.config_path)
-            )
+        except FileNotFoundError as e:
+            print("Missing configuration file {}".format(getcwd() +
+                                                         'webmon/config.json'))
+            print("Error: {}".format(e))
 
         with self.config_path.open(mode='r') as read_file:
             config_json = json.load(read_file)
