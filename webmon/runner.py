@@ -1,13 +1,13 @@
-from webmon import Config
-from webmon import Probe
+from webmon import Config, Probe, Output
 import threading
 import time
 
 
-def probe_thread(probe_obj: Probe.Probe):
+def probe_thread(probe_obj: Probe.Probe, writer: Output.Output):
     """
     This routine runs th
 
+    :param writer:
     :param probe_obj:
     :return:
     """
@@ -16,18 +16,32 @@ def probe_thread(probe_obj: Probe.Probe):
 
     while True:
         probe_out = probe_obj.basic_probe()
-        print("Probing {}".format(probe_obj.get_hostname()))
+        message = "host:{},rc:{},rt:{},ct:{}".format(probe_obj.get_hostname(),
+                                                     probe_out["return_code"],
+                                                     probe_out["response_time_sec"],
+                                                     probe_out["page_content"])
+        writer.write(message, probe_conf["PROTO"])
 
         if isinstance(probe_obj, Probe.HTTPProbe) and \
                 len(probe_conf['REGEX_MON']) > 0:
             for regex in probe_conf['REGEX_MON']:
-                print(probe_obj.regex_probe(probe_out['page_content'], regex))
+                if probe_obj.regex_probe(probe_out['page_content'], regex):
+                    message = "host:{},regex_match:{}".format(
+                        probe_obj.get_hostname(), regex)
+                    writer.write(message, probe_conf["PROTO"])
         time.sleep(int(sleep_freq))
 
 
 def main():
+
+    # Step 01: Create the Monitor Objects
+    # Step 02: Create the Kafka Producer
+    # Step 03: Sends objects to Probe Thread to Run the code
+
     main_config = Config.UserConfig()
     probe_creator = Probe.CreateProbes()
+
+    writer = Output.ToKafka(main_config.get_aiven_conn_info())
 
     for host in main_config.list_hosts():
         probe_detail = main_config.get_mon_details(host)
@@ -38,7 +52,7 @@ def main():
 
         threads = threading.Thread(
             target=probe_thread,
-            args=[probe_obj])
+            args=[probe_obj, writer])
         threads.start()
 
 
