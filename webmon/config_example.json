@@ -1,7 +1,14 @@
 {
   "AIVEN": {
-    "USER": "TBD",
-    "PASS": "TBD"
+    "AUTH": {
+            "ssl_cafile": "webmon/certificates/ca.pem",
+            "ssl_certfile": "webmon/certificates/service.cert",
+            "ssl_keyfile": "webmon/certificates/service.key"
+      },
+    "CONNECTION": {
+      "host": " ",
+      "port": " "
+    }
   },
   "HOSTS": {
     "https://aiven.io/": {
