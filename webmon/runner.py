@@ -6,11 +6,14 @@ from webmon import Config, Output, Probe
 
 def probe_thread(probe_obj: Probe.Probe, writer: Output.Output):
     """
-    This routine runs th
+    This routine is the thread that performs the monitor actions, according
+    to the monitor object and writes it using the writer object to the proper
+    place.
 
-    :param writer:
-    :param probe_obj:
-    :return:
+    :param writer: An object that encapsulates all necessary methods to write
+                    the monitor data to an external system
+    :param probe_obj: An object that encapsulates all necessary methods to
+                        monitor a specific host
     """
     probe_conf = probe_obj.get_monitor_details()
     sleep_freq = probe_conf['FREQUENCY']
@@ -35,7 +38,16 @@ def probe_thread(probe_obj: Probe.Probe, writer: Output.Output):
 
 
 def main():
+    """
+    This routine performs the proper class instantiation and threads to produce
+    data to an external system. Steps performed here are:
 
+    1. Gather all necessary information from configuration files
+    2. Creates an instance of a Kafka Producer (writer)
+    3. For each host to monitor:
+       3.1 A monitor instance is created
+       3.2 A thread is created with the monitor instance and kafka writer
+    """
     main_config = Config.UserConfig()
     probe_creator = Probe.CreateProbes()
 
