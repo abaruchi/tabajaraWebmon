@@ -6,7 +6,8 @@ from abc import ABC, abstractmethod
 
 class Probe(ABC):
     """
-    This class is
+    This abstract class must be used to implement probes in different
+    applications protocols.
     """
 
     def __init__(self, host: str, monitor_conf: dict):
@@ -14,7 +15,12 @@ class Probe(ABC):
         self.monitor_conf = monitor_conf
 
     @abstractmethod
-    def basic_probe(self):
+    def basic_probe(self) -> dict:
+        """
+        Implements basic probe mechanisms for a given protocol.
+
+        :return: A dictionary with probed data from a host.
+        """
         pass
 
     def get_hostname(self):
@@ -28,8 +34,10 @@ class HTTPProbe(Probe):
 
     def basic_probe(self, req_timeout: int = 10) -> dict:
         """
-        This method runs the basic probe and stores the result in a dictionary.
+        This method runs the basic probe to HTTP Protocol using requests
+        library.
 
+        :param req_timeout: Max waiting time (in seconds) to probe the Host
         :return: A dictionary with basic probe information
         """
 
