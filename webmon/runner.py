@@ -17,18 +17,19 @@ def probe_thread(probe_obj: Probe.Probe, writer: Output.Output):
 
     while True:
         probe_out = probe_obj.basic_probe()
-        message = "host:{},rc:{},rt:{},ct:{}".format(probe_obj.get_hostname(),
-                                                     probe_out["return_code"],
-                                                     probe_out["response_time_sec"],
-                                                     probe_out["page_content"])
+        message = "host:{},ts:{}, rc:{},rt:{},ct:{}".format(probe_obj.get_hostname(),
+                                                            probe_out["timestamp"],
+                                                            probe_out["return_code"],
+                                                            probe_out["response_time_sec"],
+                                                            probe_out["page_content"])
         writer.write(message, probe_conf["PROTO"])
 
         if isinstance(probe_obj, Probe.HTTPProbe) and \
                 len(probe_conf['REGEX_MON']) > 0:
             for regex in probe_conf['REGEX_MON']:
                 if probe_obj.regex_probe(probe_out['page_content'], regex):
-                    message = "host:{},regex_match:{}".format(
-                        probe_obj.get_hostname(), regex)
+                    message = "host:{}, ts:{}, regex_match:{}".format(
+                        probe_obj.get_hostname(), probe_out["timestamp"], regex)
                     writer.write(message, probe_conf["PROTO"])
         time.sleep(int(sleep_freq))
 

@@ -1,5 +1,6 @@
 import requests
 import re
+from datetime import datetime
 
 from abc import ABC, abstractmethod
 
@@ -44,12 +45,14 @@ class HTTPProbe(Probe):
         try:
             http_probe = requests.get(self.host, timeout=req_timeout)
             http_probe_response = {
+                'timestamp': str(datetime.now()),
                 'return_code': http_probe.status_code,
                 'response_time_sec': http_probe.elapsed.total_seconds(),
                 'page_content': http_probe.text
             }
         except requests.exceptions.Timeout:
             http_probe_response = {
+                'timestamp': str(datetime.now()),
                 'return_code': 0,
                 'response_time_sec': float('Inf'),
                 'page_content': ''
