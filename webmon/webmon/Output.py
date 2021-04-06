@@ -4,7 +4,7 @@ from kafka.errors import KafkaError
 
 class Output(object):
     """
-    This abstract class must be used to implement mechanisms to Output the
+    This class must be used to implement mechanisms to Output the
     probed data to any given system (i.e. kafka, Database, Object Storage, etc)
     """
 
