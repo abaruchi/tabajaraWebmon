@@ -34,10 +34,6 @@ def probe_thread(probe_obj: Probe.Probe, writer: Output.Output):
 
 def main():
 
-    # Step 01: Create the Monitor Objects
-    # Step 02: Create the Kafka Producer
-    # Step 03: Sends objects to Probe Thread to Run the code
-
     main_config = Config.UserConfig()
     probe_creator = Probe.CreateProbes()
 
