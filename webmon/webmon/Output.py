@@ -61,7 +61,7 @@ class ToKafka(Output):
         auth_info = self.connection_data["AUTH"]
 
         producer = KafkaProducer(
-            bootstrap_servers=connection_info["host"] + connection_info["port"],
+            bootstrap_servers=connection_info["host"] + ":" + connection_info["port"],
             security_protocol="SSL",
             ssl_cafile=auth_info["ssl_cafile"],
             ssl_certfile=auth_info["ssl_certfile"],
