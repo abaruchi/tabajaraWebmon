@@ -1,21 +1,13 @@
 from kafka import KafkaProducer
 from kafka.errors import KafkaError
-from abc import ABC, abstractmethod
 
 
-class Output(ABC):
+class Output(object):
     """
     This abstract class must be used to implement mechanisms to Output the
     probed data to any given system (i.e. kafka, Database, Object Storage, etc)
     """
 
-    def __init__(self, connection: dict):
-        self.connection_data = connection
-
-        if not self.__connection_validation():
-            raise ConnectionAbortedError
-
-    @abstractmethod
     def write(self, message: str, protocol_monitor: str = '') -> None:
         """
         This method is used to write a message to the system.
@@ -39,7 +31,10 @@ class Output(ABC):
 class ToKafka(Output):
 
     def __init__(self, connection: dict):
-        super().__init__(connection)
+        self.connection_data = connection
+
+        if not self.__connection_validation():
+            raise ConnectionAbortedError
 
         self.connection = self.__connect()
 
