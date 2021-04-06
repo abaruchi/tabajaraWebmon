@@ -7,19 +7,16 @@
     "https://mock_url_01/": {
       "PROTO": "HTTP",
       "FREQUENCY": "10",
-      "BASIC_MON": "True",
       "REGEX_MON": ["pattern01", "[Pp]attern02", "not a Pattern"]
     },
     "https://mock_url_02/": {
       "PROTO": "HTTP",
       "FREQUENCY": "5",
-      "BASIC_MON": "True",
       "REGEX_MON": []
     },
     "https://mock_url_03/": {
       "PROTO": "FAKEPROTOCOL",
       "FREQUENCY": "5",
-      "BASIC_MON": "True",
       "REGEX_MON": ["pattern01", "[Pp]attern02"]
     }
   }

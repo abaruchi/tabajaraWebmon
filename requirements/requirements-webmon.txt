@@ -1,1 +1,2 @@
 requests == 2.24.0
+kafka-python == 2.0.2

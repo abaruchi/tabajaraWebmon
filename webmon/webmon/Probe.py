@@ -17,6 +17,12 @@ class Probe(ABC):
     def basic_probe(self):
         pass
 
+    def get_hostname(self):
+        return self.host
+
+    def get_monitor_details(self):
+        return self.monitor_conf
+
 
 class HTTPProbe(Probe):
 
@@ -59,15 +65,14 @@ class HTTPProbe(Probe):
         return False
 
 
-class CreateProbe:
+class CreateProbes:
     """
     This class is used to build Monitor Objects. When adding new Appl Protocols
     another entry should be added to this class. Since the absence of a protocol
     implementation is an unrecoverable error a NotImplementedError is raised.
     """
 
-    def get_probe(self, hostname: str, probe_details: dict,
-                  probe_proto: str = 'HTTP'):
+    def get_probe(self, hostname: str, probe_details: dict, probe_proto: str):
 
         if probe_proto == 'HTTP':
             return HTTPProbe(hostname, probe_details)

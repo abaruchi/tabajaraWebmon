@@ -9,7 +9,7 @@ class TestProbe(unittest.TestCase):
 
     def setUp(self) -> None:
         self.conf = Config.UserConfig(config_path='config_test.json')
-        self.probe = Probe.CreateProbe()
+        self.probe = Probe.CreateProbes()
 
         self.text_url_01 = \
             "Lorem ipsum dolor sit amet - pattern01 and Pattern02"

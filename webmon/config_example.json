@@ -7,13 +7,11 @@
     "https://aiven.io/": {
       "PROTO": "HTTP",
       "FREQUENCY": "10",
-      "BASIC_MON": "True",
       "REGEX_MON": ["manage", "open *", "some_pattern * other pattern"]
     },
     "https://www.uol.com.br/": {
       "PROTO": "HTTP",
       "FREQUENCY": "5",
-      "BASIC_MON": "True",
       "REGEX_MON": ["[Ee]ntretenimento", "baruchi", "[Cc]ovid"]
     }
   }
