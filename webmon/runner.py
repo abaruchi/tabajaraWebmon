@@ -1,6 +1,7 @@
-from webmon import Config, Probe, Output
 import threading
 import time
+
+from webmon import Config, Output, Probe
 
 
 def probe_thread(probe_obj: Probe.Probe, writer: Output.Output):

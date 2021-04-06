@@ -1,8 +1,9 @@
 import unittest
+
 import requests
 import requests_mock
-from webmon.webmon import Config
-from webmon.webmon import Probe
+
+from webmon.webmon import Config, Probe
 
 
 class TestProbe(unittest.TestCase):
