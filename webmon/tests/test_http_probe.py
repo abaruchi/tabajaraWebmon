@@ -21,7 +21,8 @@ class TestProbe(unittest.TestCase):
             mock.get(mocked_url,
                      text=self.text_url_01, status_code=200)
             probe_test = self.probe.get_probe(mocked_url,
-                                              self.conf.get_mon_details(mocked_url))
+                                              self.conf.get_mon_details(mocked_url),
+                                              self.conf.get_mon_details(mocked_url)['PROTO'])
             # Basic Probe Test
             self.assertEqual(
                 probe_test.basic_probe()['return_code'], 200)
@@ -55,7 +56,8 @@ class TestProbe(unittest.TestCase):
         with requests_mock.Mocker() as mock:
             mock.get(mocked_url, exc=requests.exceptions.Timeout)
             probe_test = self.probe.get_probe(mocked_url,
-                                              self.conf.get_mon_details(mocked_url))
+                                              self.conf.get_mon_details(mocked_url),
+                                              self.conf.get_mon_details(mocked_url)['PROTO'])
 
             # Basic Probe Test
             self.assertEqual(
