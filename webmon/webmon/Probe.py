@@ -80,7 +80,8 @@ class CreateProbes:
     implementation is an unrecoverable error a NotImplementedError is raised.
     """
 
-    def get_probe(self, hostname: str, probe_details: dict, probe_proto: str):
+    def get_probe(self, hostname: str, probe_details: dict,
+                  probe_proto: str) -> Probe:
 
         if probe_proto == 'HTTP':
             return HTTPProbe(hostname, probe_details)
