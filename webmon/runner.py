@@ -1,7 +1,7 @@
 from webmon import Config
 from webmon import Probe
 
-c = Config.user_config
+c = Config.UserConfig()
 probe_creator = Probe.CreateProbe()
 
 for host in c.list_hosts():

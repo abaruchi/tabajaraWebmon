@@ -34,7 +34,7 @@ class HTTPProbe(Probe):
                 'response_time_sec': http_probe.elapsed.total_seconds(),
                 'page_content': http_probe.text
             }
-        except TimeoutError:
+        except requests.exceptions.Timeout:
             http_probe_response = {
                 'return_code': 0,
                 'response_time_sec': float('Inf'),
