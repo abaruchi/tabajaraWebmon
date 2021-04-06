@@ -40,3 +40,13 @@ class UserConfig(object):
         """
 
         return self.config_json['HOSTS'].get(host, {})
+
+    def get_aiven_conn_info(self) -> dict:
+        """
+        This method just returns the connection information to AIVEN
+        Infrastructure.
+
+        :return: dictionary with Aiven connection data
+        """
+
+        return self.config_json["AIVEN"]
