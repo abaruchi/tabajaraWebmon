@@ -1,0 +1,17 @@
+{
+  "SERVICES": {
+    "KAFKA": {
+      "host": "hostname_here",
+      "port": "port_here",
+      "topic": ["some_topic"],
+      "AUTH": {
+        "ssl_cafile": "webstore/certificates/ca.pem",
+        "ssl_certfile": "webstore/certificates/service.cert",
+        "ssl_keyfile": "webstore/certificates/service.key"
+      }
+    },
+    "POSTGRESQL": {
+      "uri": "postgres://..."
+    }
+  }
+}
