@@ -60,10 +60,10 @@ class FileStorer(object):
     def __init__(self, fd: TextIO):
         self.fd = fd
 
-    def http_writer(self, message: str):
+    def http_writer(self, monitor_type: str, message: str):
 
         self.fd.write(
-            "http_monitor: {}".format(message)
+            "http_monitor, {}: {}".format(monitor_type, message)
         )
 
 
