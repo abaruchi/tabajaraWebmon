@@ -1,6 +1,8 @@
-import psycopg2
-from webstore.webstore import SQL
 from typing import TextIO
+
+import psycopg2
+
+from webstore.webstore import SQL
 
 
 class SQLStorer(object):

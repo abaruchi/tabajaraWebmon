@@ -1,5 +1,4 @@
 
-
 class Command(object):
     """
     This class is used to generate SQL commands. It must be the only place where

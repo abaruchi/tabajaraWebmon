@@ -1,8 +1,9 @@
-from webstore import Config, Consumer, Storer
 import threading
-import psycopg2
 
+import psycopg2
 from kafka import KafkaConsumer
+
+from webstore import Config, Consumer, Storer
 
 
 def writer_thread(protocol: str, kafka_conn: KafkaConsumer,
