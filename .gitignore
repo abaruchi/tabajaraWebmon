@@ -319,12 +319,11 @@ Thumbs.db #thumbnail cache on Windows
 # profiling data
 .prof
 
-webmon/config.json
-webstore/config.json
+web*/config.json
 
-webmon/certificates/*pem
-webmon/certificates/*cert
-webmon/certificates/*key
+web*/certificates/*pem
+web*/certificates/*cert
+web*/certificates/*key
 
 
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,python,intellij
