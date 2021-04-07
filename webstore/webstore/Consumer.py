@@ -3,17 +3,20 @@ from kafka import KafkaConsumer
 from webstore import Config
 
 
-# Todo: Handle different topics for different protocols
-def from_kafka(config: Config.UserConfig):
+def kafka_consumer(config: Config.UserConfig, topic: str) -> KafkaConsumer:
     """
+    This function connects to the Kafka cluster and gather messages for
+    a specific topic. This routine can be called for different topics (each
+    topic can be a different protocol, for example).
 
-    :param config:
-    :return:
+    :param topic: The kafka topic to gather message
+    :param config: A configuration instance to retrieve kafka connection info
+    :return: A KafkaConsumer instance to be used by any client
     """
     kafka_config = config.get_service_details("KAFKA")
 
     consumer = KafkaConsumer(
-        kafka_config["topics"][0],
+        topic,
         auto_offset_reset="earliest",
         bootstrap_servers=kafka_config["host"] + ":" + kafka_config["port"],
         group_id="consumer-group",
@@ -23,6 +26,4 @@ def from_kafka(config: Config.UserConfig):
         ssl_certfile=kafka_config["AUTH"]["ssl_certfile"],
         ssl_keyfile=kafka_config["AUTH"]["ssl_keyfile"])
 
-    for message in consumer:
-        message = message.value
-        print(message.decode('utf-8'))
+    return consumer
