@@ -2,7 +2,7 @@ from typing import TextIO
 
 import psycopg2
 
-from webstore.webstore import SQL
+from webstore import SQL
 
 
 class SQLStorer(object):
@@ -65,8 +65,9 @@ class FileStorer(object):
     def http_writer(self, monitor_type: str, message: str):
 
         self.fd.write(
-            "http_monitor, {}: {}".format(monitor_type, message)
+            "http_monitor, {}: {}\n".format(monitor_type, message)
         )
+        self.fd.flush()
 
 
 def CreateStorer(type: str, **kwargs):
