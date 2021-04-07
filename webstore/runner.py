@@ -83,13 +83,13 @@ def main():
         # threads.start()
 
         # Creates a file writer - uncomment it to write it to a local file
-        with open("./http_monitoring", "w") as monitor_fd:
-            file_storer = Storer.CreateStorer("File", fd=monitor_fd)
-            threads = threading.Thread(
-                target=writer_thread,
-                args=[protocol, kafka_consumer, file_storer]
-            )
-            threads.start()
+        monitor_fd = open('./http_monitoring', 'w+')
+        file_storer = Storer.CreateStorer("File", fd=monitor_fd)
+        threads = threading.Thread(
+            target=writer_thread,
+            args=[protocol, kafka_consumer, file_storer]
+        )
+        threads.start()
 
 
 if __name__ == '__main__':
