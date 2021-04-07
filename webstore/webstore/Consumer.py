@@ -16,17 +16,13 @@ def from_kafka(config: Config.UserConfig):
         kafka_config["topics"][0],
         auto_offset_reset="earliest",
         bootstrap_servers=kafka_config["host"] + ":" + kafka_config["port"],
-        client_id="consumer-mon-client-1",
-        group_id="consumer-mon-group",
+        group_id="consumer-group",
+        enable_auto_commit=True,
         security_protocol="SSL",
         ssl_cafile=kafka_config["AUTH"]["ssl_cafile"],
         ssl_certfile=kafka_config["AUTH"]["ssl_certfile"],
         ssl_keyfile=kafka_config["AUTH"]["ssl_keyfile"])
 
-    for _ in range(2):
-        raw_msgs = consumer.poll(timeout_ms=1000)
-        for tp, messages in raw_msgs.items():
-            for message in messages:
-                print("Received: {}".format(message.value))
-
-    consumer.commit()
+    for message in consumer:
+        message = message.value
+        print(message.decode('utf-8'))
