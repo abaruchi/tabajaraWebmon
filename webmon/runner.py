@@ -20,11 +20,10 @@ def probe_thread(probe_obj: Probe.Probe, writer: Output.Output):
 
     while True:
         probe_out = probe_obj.basic_probe()
-        message = "host:{},ts:{}, rc:{},rt:{},ct:{}".format(probe_obj.get_hostname(),
+        message = "host:{},ts:{}, rc:{},rt:{}".format(probe_obj.get_hostname(),
                                                             probe_out["timestamp"],
                                                             probe_out["return_code"],
-                                                            probe_out["response_time_sec"],
-                                                            probe_out["page_content"])
+                                                            probe_out["response_time_sec"])
         writer.write(message, probe_conf["PROTO"])
 
         if isinstance(probe_obj, Probe.HTTPProbe) and \
