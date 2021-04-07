@@ -1,5 +1,6 @@
 import threading
 import time
+from string import Template
 
 from webmon import Config, Output, Probe
 
@@ -19,19 +20,24 @@ def probe_thread(probe_obj: Probe.Probe, writer: Output.Output):
     sleep_freq = probe_conf['FREQUENCY']
 
     while True:
+        message_type = Template("mon_type::$type,")
+
         probe_out = probe_obj.basic_probe()
-        message = "host::{},ts::{},rc::{},rt::{}".format(probe_obj.get_hostname(),
-                                                            probe_out["timestamp"],
-                                                            probe_out["return_code"],
-                                                            probe_out["response_time_sec"])
+        message = message_type.substitute(type="basic") + \
+                  "host::{},ts::{},rc::{},rt::{}".format(probe_obj.get_hostname(),
+                                                         probe_out["timestamp"],
+                                                         probe_out["return_code"],
+                                                         probe_out["response_time_sec"])
         writer.write(message, probe_conf["PROTO"])
 
         if isinstance(probe_obj, Probe.HTTPProbe) and \
                 len(probe_conf['REGEX_MON']) > 0:
             for regex in probe_conf['REGEX_MON']:
                 if probe_obj.regex_probe(probe_out['page_content'], regex):
-                    message = "host::{},ts::{},regex_match::{}".format(
-                        probe_obj.get_hostname(), probe_out["timestamp"], regex)
+                    message = message_type.substitute(type="regex") + \
+                              "host::{},ts::{},regex_match::{}".format(
+                                  probe_obj.get_hostname(),
+                                  probe_out["timestamp"], regex)
                     writer.write(message, probe_conf["PROTO"])
         time.sleep(int(sleep_freq))
 
