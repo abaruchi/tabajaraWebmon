@@ -1,3 +1,6 @@
-import webstore
+from webstore import Config, Consumer
 
-print("Hi there.. Im TABAJARA WebStore")
+
+config = Config.UserConfig()
+
+Consumer.from_kafka(config)
