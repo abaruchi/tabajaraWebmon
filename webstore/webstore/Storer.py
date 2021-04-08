@@ -53,7 +53,7 @@ class SQLStorer(object):
         else:
             raise NotImplementedError
 
-        sql_insert = self.SQLCommand.insert(table, table_data)
+        sql_insert = self.SQLCommand.insert("public." + table, table_data)
         self.db_cursor.execute(sql_insert)
 
 
