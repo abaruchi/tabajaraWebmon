@@ -1,4 +1,3 @@
-
 class Command(object):
     """
     This class is used to generate SQL commands. It must be the only place where
@@ -15,10 +14,13 @@ class Command(object):
 
         Reference: https://realpython.com/prevent-python-sql-injection/
 
-        :param table: The table name to
+        :param table: The table name where data will be inserted
         :param values: A list with tuples (column, value)
         :return: The insert command to add values into database
         """
+
+        if not self.__list_validation(values):
+            raise AttributeError
 
         sql_insert_cols = "("
         sql_insert_cols += ", ".join(map(lambda x: str(x[0]), values))
@@ -31,3 +33,22 @@ class Command(object):
 
         return "INSERT INTO {} {} VALUES {}".format(table, sql_insert_cols,
                                                     sql_insert_val)
+
+    def __list_validation(self, values: list) -> bool:
+        """
+        This method is used to validate the list used as input to the SQL
+        generator.
+
+        :param values: A list with tuples (column, value)
+        :return: True if the list is fine, False otherwise
+        """
+
+        if len(values) == 0:
+            return False
+
+        for value in values:
+            col_name, value = value
+            if len(col_name) == 0 or len(value) == 0:
+                return False
+
+        return True
