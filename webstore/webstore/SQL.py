@@ -25,7 +25,8 @@ class Command(object):
         sql_insert_cols += ")"
 
         sql_insert_val = "("
-        sql_insert_val += ", ".join(map(lambda x: str(x[1]), values))
+        sql_insert_val += ", ".join(map(lambda x: "\'{}\'".format(str(x[1])),
+                                        values))
         sql_insert_val += ")"
 
         return "INSERT INTO {} {} VALUES {}".format(table, sql_insert_cols,
