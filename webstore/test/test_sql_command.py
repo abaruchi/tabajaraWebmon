@@ -1,6 +1,6 @@
 import unittest
 
-from webstore.webstore import SQL
+from webstore import SQL
 
 
 class TestProbe(unittest.TestCase):

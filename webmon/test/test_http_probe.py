@@ -3,13 +3,13 @@ import unittest
 import requests
 import requests_mock
 
-from webmon.webmon import Config, Probe
+from webmon import Config, Probe
 
 
 class TestProbe(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.conf = Config.UserConfig(config_path='config_test.json')
+        self.conf = Config.UserConfig(config_path='test/config_test.json')
         self.probe = Probe.CreateProbes()
 
         self.text_url_01 = \

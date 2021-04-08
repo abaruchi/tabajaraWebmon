@@ -1,6 +1,6 @@
 import unittest
 
-from webmon.webmon import Config, Output
+from webmon import Output
 
 
 class TestProbe(unittest.TestCase):
