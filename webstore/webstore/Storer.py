@@ -6,18 +6,22 @@ from webstore import SQL
 
 
 class SQLStorer(object):
+    """
+    This class implements a writer to a PostgreSQL database.
+    """
 
     def __init__(self, conn: psycopg2.extensions.connection):
         self.conn = conn
         self.db_cursor = conn.cursor()
         self.SQLCommand = SQL.Command()
 
-    def http_writer(self, table: str, message: str):
+    def http_writer(self, table: str, message: str) -> None:
         """
+        This method is the writer itself. It implements some data transformation
+        to the raw message and writes to the database.
 
-        :param table:
-        :param message:
-        :return:
+        :param table: Table to write the data consumed from Kafka
+        :param message: The message itself to write to the database
         """
         values = message.split(',')
         table_data = list()
@@ -60,6 +64,10 @@ class SQLStorer(object):
 
 
 class FileStorer(object):
+    """
+    This class implements mechanisms to write data from Kafta to a file. It can
+    be used to test the consumer to write in a specific file.
+    """
 
     def __init__(self, fd: TextIO):
         self.fd = fd
