@@ -73,23 +73,23 @@ def main():
         kafka_consumer = Consumer.kafka_consumer(config, topic)
 
         # Creates a Connection with DB
-        # db_conn = psycopg2.connect(db_service["uri"])
-        # db_storer = Storer.CreateStorer("SQL", conn=db_conn)
-        #
-        # threads = threading.Thread(
-        #     target=writer_thread,
-        #     args=[protocol, kafka_consumer, db_storer]
-        # )
-        # threads.start()
+        db_conn = psycopg2.connect(db_service["uri"])
+        db_storer = Storer.CreateStorer("SQL", conn=db_conn)
 
-        # Creates a file writer - uncomment it to write it to a local file
-        monitor_fd = open('./http_monitoring', 'w+')
-        file_storer = Storer.CreateStorer("File", fd=monitor_fd)
         threads = threading.Thread(
             target=writer_thread,
-            args=[protocol, kafka_consumer, file_storer]
+            args=[protocol, kafka_consumer, db_storer]
         )
         threads.start()
+
+        # Creates a file writer - uncomment it to write it to a local file
+        # monitor_fd = open('./http_monitoring', 'w+')
+        # file_storer = Storer.CreateStorer("File", fd=monitor_fd)
+        # threads = threading.Thread(
+        #     target=writer_thread,
+        #     args=[protocol, kafka_consumer, file_storer]
+        # )
+        # threads.start()
 
 
 if __name__ == '__main__':
