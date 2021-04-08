@@ -1,4 +1,4 @@
-from webstore.webstore import Config
+from webstore import Config
 import unittest
 
 
@@ -7,7 +7,7 @@ class ConfigTest(unittest.TestCase):
     def setUp(self) -> None:
 
         self.missing_file = "file_that_doest_exist"
-        self.conf_file = "config_test.json"
+        self.conf_file = "test/config_test.json"
 
     def test_missing_config_file(self):
 
