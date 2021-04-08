@@ -8,6 +8,7 @@ from webstore import SQL
 class SQLStorer(object):
 
     def __init__(self, conn: psycopg2.extensions.connection):
+        self.conn = conn
         self.db_cursor = conn.cursor()
         self.SQLCommand = SQL.Command()
 
@@ -55,6 +56,7 @@ class SQLStorer(object):
 
         sql_insert = self.SQLCommand.insert("public." + table, table_data)
         self.db_cursor.execute(sql_insert)
+        self.conn.commit()
 
 
 class FileStorer(object):
