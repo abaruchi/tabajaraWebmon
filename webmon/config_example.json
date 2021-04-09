@@ -7,7 +7,8 @@
       },
     "CONNECTION": {
       "host": "your_kafka_hostname_here",
-      "port": "your_kafka_port_here"
+      "port": "your_kafka_port_here",
+      "topic": ["http_monitor"]
     }
   },
   "HOSTS": {
