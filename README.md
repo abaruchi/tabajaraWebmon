@@ -10,6 +10,7 @@
 4. [Running](#running)
 5. [Features Not Implemented Yet](#Features-Not-Implemented-Yet)
 6. [How to Contribute](#how-to-contribute)
+7. [Known Issues](#known-issues)
 
 ## Introduction
 
@@ -195,3 +196,50 @@ Step 4: Navigate to your local repository. ...
 Step 5: Check that your fork is the "origin" remote. 
 
 Step 6: Add the project repository as the "upstream" remote.
+
+## Known Issues
+This session describes some errors observed while running the services. Until now
+we were unable to address these issues, but some workaround can be performed in order
+to run the services.
+
+### Error: Failed to establish a new connection
+After a while, running Webmon service, you see the following error:
+
+```
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='<HOST>', port=443): 
+Max retries exceeded with url: / 
+(Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1a8c43d7d0>: 
+Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+```
+It can be caused due to a rate limiter implemented in some websites. It prevents DoS attacks and 
+misconfigured web crawlers to bring the website down.
+
+*Workaround:* Increase the probe frequency in `config.json` file for the host you noticed the error.
+
+### Error: kafka.errors.NoBrokersAvailable: NoBrokersAvailable
+When starting one of services (Webmon or Webstore) the following error appear:
+
+```
+Traceback (most recent call last):
+  File "webmon/runner.py", line 75, in <module>
+    main()
+  File "webmon/runner.py", line 59, in main
+    writer = Output.ToKafka(main_config.get_aiven_conn_info())
+  File "/webmon/webmon/webmon/Output.py", line 39, in __init__
+    self.connection = self.__connect()
+  File "/webmon/webmon/webmon/Output.py", line 68, in __connect
+    ssl_keyfile=auth_info["ssl_keyfile"])
+  File "/usr/local/lib/python3.7/site-packages/kafka/producer/kafka.py", line 383, in __init__
+    **self.config)
+  File "/usr/local/lib/python3.7/site-packages/kafka/client_async.py", line 244, in __init__
+    self.config['api_version'] = self.check_version(timeout=check_timeout)
+  File "/usr/local/lib/python3.7/site-packages/kafka/client_async.py", line 927, in check_version
+    raise Errors.NoBrokersAvailable()
+kafka.errors.NoBrokersAvailable: NoBrokersAvailable
+```
+This error can be related to a misconfigured Kafka instance, please, take a look 
+into the name of Kafka topic configured and the topic name at configuration files.
+Also, make sure that all files are properly placed at `certificates\` directory. 
+Refer to this [Documentation](https://help.aiven.io/en/articles/489572-getting-started-with-aiven-for-apache-kafka) for configuring the Kafka Instance.
+
+*Workaround:* If everything looks fine, usually, restarting the service the error stops. 
