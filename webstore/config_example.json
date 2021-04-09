@@ -1,9 +1,9 @@
 {
   "SERVICES": {
     "KAFKA": {
-      "host": "hostname_here",
-      "port": "port_here",
-      "topic": ["some_topic"],
+      "host": "your_kafka_hostname_here",
+      "port": "your_kafka_port_here",
+      "topic": ["http_topic"],
       "AUTH": {
         "ssl_cafile": "webstore/certificates/ca.pem",
         "ssl_certfile": "webstore/certificates/service.cert",

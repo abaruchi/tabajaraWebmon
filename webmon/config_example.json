@@ -6,8 +6,8 @@
             "ssl_keyfile": "webmon/certificates/service.key"
       },
     "CONNECTION": {
-      "host": " ",
-      "port": " "
+      "host": "your_kafka_hostname_here",
+      "port": "your_kafka_port_here"
     }
   },
   "HOSTS": {
