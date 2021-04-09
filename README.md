@@ -11,7 +11,7 @@
 5. [Features Not Implemented Yet](#Features-Not-Implemented-Yet)
 6. [How to Contribute](#how-to-contribute)
 
-##Introduction
+## Introduction
 
 This repository contains Tabajara Webmon's code. It is a webmonitor tool
 that checks a set of basic metrics of a given URL and also monitors the 
@@ -75,7 +75,9 @@ in a remote PostgreSQL service, hosted at [Aiven](https://aiven.io/).
 ### Premisses
 The tabajaraWebmon project automates most part of the system. However, since there
 are some remote parts, hosted at [Aiven](https://aiven.io/), the user still has
-to download and configure properly the access files and 
+to download and configure properly the access files and perform some manual steps.
+Before running Webmon and Webstore, remote services and authentication data (uri,
+ssl file, etc) must be already available.
 
 * Kafka instance running with a topic named `http_monitor`;
 * PostgreSQL instance running with a database and tables in place. To create 
@@ -112,15 +114,13 @@ fill it with information related to connection to the Aiven services.
 3.1. The configuration file related to the service `Webmon` also contains parameters
 to the Host you want to monitor. These parameters are:
 
-```json
-  "HOSTS": {
-"[hostname or IP address]": {
-"PROTO": "HTTP",        <- Application protocol used to monitor the service.
-"FREQUENCY": "10",      <- Probe Frequency (in seconds).
-"REGEX_MON": ["open *"] <- Regex list to match, use python regex format.
-}
-...
-}
+```
+"HOSTS": {
+    "[hostname or IP address]": {
+    "PROTO": "HTTP",        <- Application protocol used to monitor the service.
+    "FREQUENCY": "10",      <- Probe Frequency (in seconds).
+    "REGEX_MON": ["open *"] <- Regex list to match, use python regex format.
+  }
 ```
 
 4. Build docker containers:
@@ -195,4 +195,3 @@ Step 4: Navigate to your local repository. ...
 Step 5: Check that your fork is the "origin" remote. 
 
 Step 6: Add the project repository as the "upstream" remote.
-
