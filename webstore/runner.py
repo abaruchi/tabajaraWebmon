@@ -64,6 +64,19 @@ def main():
     kafka_service = config.get_service_details("KAFKA")
     db_service = config.get_service_details("POSTGRESQL")
 
+    # This parameters were added after observing the error
+    # "SSL SYSCALL error: EOF detected". The workaround would be removing the
+    # SSL, but it would create security issues.
+    #
+    # Reference for the fix:
+    # https://stackoverflow.com/questions/24130305/postgres-ssl-syscall-error-eof-detected-with-python-and-psycopg
+    db_keepalive_kwargs = {
+        "keepalives": 1,
+        "keepalives_idle": 30,
+        "keepalives_interval": 5,
+        "keepalives_count": 5,
+    }
+
     # Each topic in kafka represents a different Appl protocol
     # For each Protocol, we want different threads
     for topic in kafka_service["topics"]:
@@ -73,7 +86,7 @@ def main():
         kafka_consumer = Consumer.kafka_consumer(config, topic)
 
         # Creates a Connection with DB
-        db_conn = psycopg2.connect(db_service["uri"])
+        db_conn = psycopg2.connect(db_service["uri"], **db_keepalive_kwargs)
         db_storer = Storer.CreateStorer("SQL", conn=db_conn)
 
         threads = threading.Thread(
