@@ -5,9 +5,9 @@
 
 ## Contents
 1. [Introduction](#introduction)
-2. [Requirements](#system-design)
+2. [Requirements](#requirements)
 3. [System Design](#system-design)
-4. [Running](#adding-expense)
+4. [Running](#running)
 5. [Features Not Implemented Yet](#Features-Not-Implemented-Yet)
 6. [How to Contribute](#how-to-contribute)
 
