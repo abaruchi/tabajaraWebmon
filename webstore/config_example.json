@@ -3,7 +3,7 @@
     "KAFKA": {
       "host": "your_kafka_hostname_here",
       "port": "your_kafka_port_here",
-      "topics": ["http_topic"],
+      "topics": ["http_monitor"],
       "AUTH": {
         "ssl_cafile": "webstore/certificates/ca.pem",
         "ssl_certfile": "webstore/certificates/service.cert",
