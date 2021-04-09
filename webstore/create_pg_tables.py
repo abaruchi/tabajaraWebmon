@@ -13,7 +13,6 @@ r = sql_query_file.read_text()
 
 for sql_command in r.split(";"):
     if len(sql_command) > 0:
-        print(sql_command)
         db_cursor.execute(sql_command)
         db_conn.commit()
     else:
