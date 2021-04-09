@@ -4,6 +4,11 @@ from datetime import datetime
 
 from abc import ABC, abstractmethod
 
+"""
+Design Patterns example that I usually look when implementing:
+https://refactoring.guru/design-patterns/python
+"""
+
 
 class Probe(ABC):
     """
