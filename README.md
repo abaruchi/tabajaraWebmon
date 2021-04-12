@@ -1,7 +1,7 @@
 # tabajaraWebmon
 
 
-[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php) 
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)  [![codecov](https://codecov.io/gh/abaruchi/tabajaraWebmon/branch/main/graph/badge.svg?token=ASR8SHZ95C)](https://codecov.io/gh/abaruchi/tabajaraWebmon) 
 
 ## Contents
 1. [Introduction](#introduction)
